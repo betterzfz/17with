@@ -18,3 +18,8 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+
+Route::prefix('admin')->namespace('Admin')->group(function () {
+    Route::resource('category', 'CategoryController');
+    Route::resource('picture', 'PictureController');
+});

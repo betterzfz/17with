@@ -5,10 +5,13 @@
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
             <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
+                <div class="panel-heading">新增分类</div>
 
                 <div class="panel-body">
-                    You are logged in!
+                    @include('partials.errors')
+                    <form class="form-horizontal" action="/admin/category" method="post">
+                        @include('admin.category._form')
+                    </form>
                 </div>
             </div>
         </div>
