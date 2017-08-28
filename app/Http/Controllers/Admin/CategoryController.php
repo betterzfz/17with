@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\User;
 use App\Models\Category;
 use App\Http\Requests\Admin\Category as CategoryRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
 {
@@ -22,7 +24,15 @@ class CategoryController extends Controller
      */
     public function index()
     {
-        return view('admin.category.index', ['categories' => Category::orderBy('sort')->get()]);
+        $data = [];
+        $users = User::get();
+        $data['user_list'] = [0 => ''];
+        foreach ($users as $user) {
+            $data['user_list'][$user->id] = $user->name;
+        }
+        $data['categories'] = Category::orderBy('sort')->get();
+
+        return view('admin.category.index', $data);
     }
 
     /**
@@ -51,6 +61,7 @@ class CategoryController extends Controller
         foreach ($this->fields as $field => $value) {
             $category->$field = $request->get($field);
         }
+        $category->created_by = Auth::id();
         if ($category->save()) {
             return redirect('/admin/category')->withSuccess('添加分类成功！');
         } else {
@@ -98,6 +109,7 @@ class CategoryController extends Controller
         foreach ($this->fields as $field => $value) {
             $category->$field = $request->get($field);
         }
+        $category->updated_by = Auth::id();
         if ($category->save()) {
             return redirect('/admin/category')->withSuccess('修改分类成功！');
         } else {

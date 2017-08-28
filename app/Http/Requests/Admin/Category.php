@@ -23,12 +23,11 @@ class Category extends FormRequest
      */
     public function rules()
     {
-        dd($this->get('id'));
         $rules = [
             'sort' => 'required|numeric|between:0,255', // TODO: 只能是整数
         ];
         if ('PUT' == $this->method()) {
-            $rules['name'] = 'required|unique:categories|max:255';
+            $rules['name'] = 'required|unique:categories,id,:id|max:255';
         } else {
             $rules['name'] = 'required|unique:categories|max:255';
         }
