@@ -20,6 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index');
 
 Route::prefix('admin')->middleware(['auth'])->namespace('Admin')->group(function () {
+    Route::post('/admin/category/change_status_by_ids', 'CategoryController@changeStatusByIds');
     Route::resource('category', 'CategoryController');
     Route::resource('picture', 'PictureController');
 });

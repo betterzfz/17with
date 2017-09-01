@@ -127,4 +127,21 @@ class CategoryController extends Controller
     {
         //
     }
+
+    /**
+     * 根据编号修改分类记录状态
+     * 
+     * @param  Illuminate\Http\Request  $request
+     * @return \Illuminate\Http\Response
+     * @author stone
+     */
+    public function changeStatusByIds(Request $request)
+    {
+        dd($request->all());
+        if (Category::update(['statue' => $request->get('status')])->where('id', $request->get('id'))) {
+            return redirect('/admin/category')->withSuccess('操作成功！');
+        } else {
+            return back()->withErrors('操作失败！');
+        }
+    }
 }

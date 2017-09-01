@@ -52,20 +52,25 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+<div class="modal fade" id="delete-modal" tabindex="-1" role="dialog" aria-labelledby="delete-modal-label">
     <div class="modal-dialog" role="document">
         <div class="modal-content">
-        <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title" id="myModalLabel">Modal title</h4>
-        </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
+            <form action="/admin/category/change_status_by_ids" method="post">
+                {{ csrf_field() }}
+                <input type="hidden" id="delete-id" name="ids[]">
+                <input type="hidden" name="status" value="0">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="delete-modal-label">删除记录</h4>
+                </div>
+                <div class="modal-body">
+                    确认删除编号为<span id="show-id"></span>的记录吗？
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">关闭</button>
+                    <button type="submit" class="btn btn-primary">提交</button>
+                </div>
+            </form>
         </div>
     </div>
 </div>
@@ -73,7 +78,10 @@
 <script type="text/javascript">
     $(function(){
         $('.delete-btn').click(function(){
-
+            var id = $(this).attr('data-id');
+            $('#delete-id').val(id);
+            $('#show-id').html(id);
+            $('#delete-modal').modal('show');
         });
     });
 </script>
