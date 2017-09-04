@@ -30,7 +30,7 @@ class CategoryController extends Controller
         foreach ($users as $user) {
             $data['user_list'][$user->id] = $user->name;
         }
-        $data['categories'] = Category::orderBy('sort')->get();
+        $data['categories'] = Category::where('status', '>', 0)->orderBy('sort')->get();
 
         return view('admin.category.index', $data);
     }
@@ -137,8 +137,7 @@ class CategoryController extends Controller
      */
     public function changeStatusByIds(Request $request)
     {
-        dd($request->all());
-        if (Category::update(['statue' => $request->get('status')])->where('id', $request->get('id'))) {
+        if (Category::where('id', $request->get('ids'))->update(['status' => $request->get('status'), 'updated_by' => Auth::id()])) {
             return redirect('/admin/category')->withSuccess('操作成功！');
         } else {
             return back()->withErrors('操作失败！');
