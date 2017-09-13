@@ -12,7 +12,11 @@
                         <div class="form-group">
                             <label for="title" class="col-sm-2 control-label">分类</label>
                             <div class="col-sm-10">
-                                <input type="text" class="form-control" id="title" placeholder="请输入图片标题" required>
+                                <select name="category_id" class="form-control">
+                                    @foreach ($categories as $category)
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
+                                </select>
                             </div>
                         </div>
                         <div class="form-group">

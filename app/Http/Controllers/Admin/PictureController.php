@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Category;
+
 class PictureController extends Controller
 {
     /**
@@ -24,8 +26,9 @@ class PictureController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.picture.create');
+        $categories = Category::where('status', '>', '0')->get();
+
+        return view('admin.picture.create', ['categories' => $categories]);
     }
 
     /**
