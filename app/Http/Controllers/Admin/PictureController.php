@@ -26,7 +26,7 @@ class PictureController extends Controller
      */
     public function create()
     {
-        return view('admin.picture.create', ['categories' => Category::all()]);
+        return view('admin.picture.create', ['categories' => Category::where('status', '>', '0')->get()]);
     }
 
     /**
