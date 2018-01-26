@@ -24,3 +24,6 @@ Route::prefix('admin')->middleware(['auth'])->namespace('Admin')->group(function
     Route::resource('category', 'CategoryController');
     Route::resource('picture', 'PictureController');
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

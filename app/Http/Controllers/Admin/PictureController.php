@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Admin;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use App\Models\Category;
+
 class PictureController extends Controller
 {
     /**
@@ -24,8 +26,7 @@ class PictureController extends Controller
      */
     public function create()
     {
-        
-        return view('admin.picture.create');
+        return view('admin.picture.create', ['categories' => Category::all()]);
     }
 
     /**
